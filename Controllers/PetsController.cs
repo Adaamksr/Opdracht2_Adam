@@ -18,7 +18,7 @@ namespace Opdracht2_Adam.Controllers
         public PetController(IPetServices petService)
         {
             this._petService = petService;
-        }
+        }/*
         [HttpPost("CREATE")]
         public ActionResult<Pet> CreatePet(CreatePetDTO createPetDTO)
         {
@@ -28,7 +28,7 @@ namespace Opdracht2_Adam.Controllers
             newPet.Types = createPetDTO.Types;
             var PetFromDB = _petService.AddPet(newPet);
             return Ok(PetFromDB);
-        }
+        }*/
         [HttpGet("SHOW ALL PETS")]
         public ActionResult<List<ResponsePetDTO>> GetAllPets()
         {
@@ -39,9 +39,9 @@ namespace Opdracht2_Adam.Controllers
                 var responsePetDTO = new ResponsePetDTO();
                 responsePetDTO.Id = p.Id;
                 responsePetDTO.Name = p.Name;
-                responsePetDTO.Geboortedatum = p.Geboortedatum;
-                responsePetDTO.Types = p.Types;
-                responsePetDTO.Persoon = p.Persoonsen;
+                //responsePetDTO.Geboortedatum = p.Geboortedatum;
+                //responsePetDTO.Types = p.Types;
+                //responsePetDTO.Persoon = p.Persoonsen;
                 listOfResponsePetDTO.Add(responsePetDTO);
             }
 

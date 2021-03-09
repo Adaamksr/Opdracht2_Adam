@@ -7,11 +7,11 @@ namespace Opdracht2_Adam.Services
     {
         List<Persoon> GetPersonen();
         void AddPersoon(Persoon persoon);
-        Persoon PersoonLogIn(string persoonmail, string persoonpassword);
-        Persoon UpDatePersoonById(string persoonmail, string persoonpassword, string NewPassword, Persoon persoonEditValues);
+        bool PersoonLogIn(string persoonmail, string persoonpassword);
+        void ChangePasswordById(string persoonmail, string persoonpassword, string NewPassword);
         Persoon UpDatePersoonById2(int PersoonIdToEdit, Persoon PersoonEditValues);
         void DeletePersoonById(int persoonId);
-        Persoon GetMyPets(int persoonId);
+        List<Pet> GetMyPets(int persoonId);
 
     }
 }

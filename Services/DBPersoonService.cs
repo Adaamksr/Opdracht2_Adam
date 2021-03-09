@@ -18,11 +18,33 @@ namespace Opdracht2_Adam.Services
                 db.SaveChanges();
             }
         }
-        public List<Persoon> GetPersonen()
+        public bool PersoonLogIn(string persoonmail, string persoonpassword)
         {
             using (var db = new OpdrachtDBContext())
             {
-                return db.Personen.ToList();
+                var persoon = db.Personen.FirstOrDefault(x => x.Email == persoonmail && x.Password == persoonpassword);
+                if(persoon == null)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
+        public void ChangePasswordById(string persoonmail, string persoonpassword, string NewPassword)
+        {
+            using (var db = new OpdrachtDBContext())
+            {
+                var persoonToEdit = db.Personen.First(x => x.Email == persoonmail && x.Password == persoonpassword);
+                if(persoonpassword != null)
+                { 
+                    persoonToEdit.Password = NewPassword;
+                    db.Personen.Update(persoonToEdit);
+                    db.SaveChanges();
+                }
+                else
+                {
+                throw new UnauthorizedAccessException("Invalid email and/or currentpassword");
+                }
             }
         }
         public void DeletePersoonById(int persoonId)
@@ -34,17 +56,11 @@ namespace Opdracht2_Adam.Services
                 db.SaveChanges();
             }
         }
-
-
-        public Persoon UpDatePersoonById(string persoonmail, string persoonpassword, string NewPassword, Persoon persoonEditValues)
+        public List<Persoon> GetPersonen()
         {
             using (var db = new OpdrachtDBContext())
             {
-                var persoonToEdit = db.Personen.First(x => x.Email == persoonmail && x.Password == persoonpassword);
-                persoonToEdit.Password = NewPassword;
-                db.Personen.Update(persoonToEdit);
-                db.SaveChanges();
-                return persoonToEdit;
+                return db.Personen.ToList();
             }
         }
 
@@ -57,29 +73,24 @@ namespace Opdracht2_Adam.Services
                 PersoonToEdit.Lastname = PersoonEditValues.Lastname;
                 PersoonToEdit.Password = PersoonEditValues.Password;
                 PersoonToEdit.Email = PersoonEditValues.Email;
-                PersoonToEdit.PetId = PersoonEditValues.PetId;
+                PersoonToEdit.Pets = PersoonEditValues.Pets;
                 PersoonToEdit.Geboortedatum = PersoonEditValues.Geboortedatum;
-                PersoonToEdit.HasHouse = PersoonEditValues.HasHouse;
+                PersoonToEdit.HouseId = PersoonEditValues.HouseId;
                 db.Personen.Update(PersoonToEdit);
                 db.SaveChanges();
                 return PersoonToEdit;
             }
         }
 
-        public Persoon PersoonLogIn(string persoonmail, string persoonpassword)
+        public List<Pet> GetMyPets(int persoonId)
         {
             using (var db = new OpdrachtDBContext())
             {
-                var persoon = db.Personen.FirstOrDefault(x => x.Email == persoonmail && x.Password == persoonpassword);
-                return persoon;
-            }
-        }
-        public Persoon GetMyPets(int persoonId)
-        {
-            using (var db = new OpdrachtDBContext())
-            {
-                var GetPets = db.Personen.FirstOrDefault(persoon => persoon.Id == persoonId);
-                return GetPets;
+                //var GetPets = db.Personen.Include(pet=> pet.Pets).FirstOrDefault(persoon => persoon.Id == persoonId);
+                //return GetPets.Pets;
+
+                var listOfPets = db.Pets.Where(x => x.PersonId == persoonId).ToList();
+                return listOfPets;
             }
         }
 

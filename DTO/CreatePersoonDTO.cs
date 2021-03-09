@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Opdracht2_Adam.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,9 +14,8 @@ namespace Opdracht2_Adam.Controllers
             public string Lastname { get; set; }
             public string Password { get; set; }
             public string Email { get; set; }
-            public string Geboortedatum { get; set; }
-            public int PetId { get; set; } 
-            public int HasHouse { get; set; } // 0 nee - 1 Ja
+            public DateTime Geboortedatum { get; set; }
+            public int? HouseId { get; set; } // 0 nee - 1 Ja
         }
     }
 }

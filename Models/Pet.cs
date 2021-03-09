@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Opdracht2_Adam.Models
 {
@@ -6,8 +7,9 @@ namespace Opdracht2_Adam.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Geboortedatum { get; set; }
-        public string Types { get; set; }
-        public List<Persoon> Persoonsen { get; set; }
+        public DateTime Geboortedatum { get; set; }
+        //public PetTypes PetType { get; set; }
+        public int PersonId { get; set; } //Automatisch aangemaakt moet en niet bij
+        public Persoon Persoon { get; set; }
     }
 }
